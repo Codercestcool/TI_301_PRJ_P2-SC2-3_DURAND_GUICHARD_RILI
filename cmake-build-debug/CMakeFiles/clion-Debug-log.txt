@@ -1,0 +1,1 @@
+CMakeLists.txt not found in C:\Users\Gabriel\CLionProjects\TI_301_PRJ_P2-SC2-3_DURAND_GUICHARD_RILI Select CMakeLists.txt
