@@ -16,6 +16,8 @@ typedef struct s_list_adj {
     t_list *liste;
 } t_list_adj;
 
+static char *getID(int i);
+
 t_cell * createCell(int arrivee, float proba);
 t_list * createEmptyList();
 void addCell(t_list *list, t_cell *cell);
