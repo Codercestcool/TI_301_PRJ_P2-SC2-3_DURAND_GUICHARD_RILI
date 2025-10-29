@@ -27,38 +27,64 @@ static char *getID(int i){
     return buffer;
 }
 
+// Crée une nouvelle cellule 
 t_cell * createCell(int arrivee, float proba) {
     t_cell *cell = (t_cell *)malloc(sizeof(t_cell));
-    cell->arrivee = arrivee;
+    cell->destination = destination;
     cell->proba = proba;
     return cell;
 }
 
+// Crée une liste vide
 t_list * createEmptyList() {
     t_list *list = (t_list *)malloc(sizeof(t_list));
     list->head = NULL;
     return list;
 }
 
-void addCell(t_list *list, t_cell *cell) {
-    cell->suiv = NULL;
-    if (list->head == NULL) {
-        list->head = cell;
-    } else {
-        t_cell *p = list->head;
-        while (p->suiv != NULL) {
-            p = p->suiv;
-        }
-        p->suiv = cell;
-    }
+// Ajoute une cellule au début d’une liste
+void addCell(t_list *list, int arrivee, float proba) {
+    cell *newCell = createCell(destination, proba);
+    if (newCell == NULL) return; // Si l’allocation a échoué, on arrête ici
+
+    // Insertion en tête de liste
+    newCell->next = list->head;
+    list->head = newCell;
 }
 
+// Affiche le contenu d’une liste
 void displayList(t_list *list) {
-    t_cell *cell = list->head;
+    t_cell *current = list->head;
     printf("[head @] -> ");
-    while (cell->suiv != NULL) {
-        printf("(%d, %f) -> ", cell->arrivee, cell->proba);
-        cell = cell->suiv;
+    while (cell->suivant != NULL) {
+        printf("(%d, %.2f) -> ", cell->destination, cell->proba);
+        cell = cell->suivant;
     }
-    printf("(%d, %f)", cell->arrivee, cell->proba);
+    printf("(%d, %.2f)", cell->destination, cell->proba);
 }
+
+// Crée une liste d’adjacence vide pour un nombre donné de sommets
+t_list_adj createEmptyAdjList(int size) {
+    t_list_adj list_adj;
+    list_adj.size = size;
+    list_adj.tab = (list *)malloc(size * sizeof(list));
+
+    if (list_adj.tab == NULL) {
+        printf("Erreur : allocation mémoire du tableau de listes.\n");
+        list_adj.size = 0;
+        return G;
+    }
+
+    // On initialise chaque liste du tableau comme vide
+    for (int i = 0; i < size; i++) {
+        list_adj.tab[i] = createEmptyList();
+    }
+
+    return list_adj;
+}
+ 
+// Lecture du fichier et création du graphe
+
+// Lit un fichier texte et construit la liste d’adjacence correspondante
+ 
+t_list_adj readGraph(const char *filename)   //a faire 
