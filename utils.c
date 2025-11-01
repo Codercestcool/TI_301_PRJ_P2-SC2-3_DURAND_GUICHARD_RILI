@@ -164,3 +164,44 @@ void verifyMarkovGraph(t_list_adj *graph){
     else
         printf("Le graphe n’est pas un graphe de Markov\n");
 }
+
+//=====PARTIE 1 ETAPE 3=====
+
+// Exporte un graphe au format Mermaid
+void exportToMermaid(t_list_adj *graph, const char *filename) {
+    FILE *file = fopen(filename, "wt");
+
+    if (file == NULL) {
+        perror("Erreur à l’ouverture du fichier Mermaid");
+        exit(EXIT_FAILURE);
+    }
+
+    //En-tête du fichier Mermaid
+    fprintf(file, "---\n");
+    fprintf(file, "config:\n");
+    fprintf(file, " layout: elk\n");
+    fprintf(file, " theme: neo\n");
+    fprintf(file, " look: neo\n");
+    fprintf(file, "---\n");
+    fprintf(file, "flowchart LR\n");
+
+    //Définition des sommets
+    for (int i = 0; i < graph->taille; i++) {
+        fprintf(file, "%s((%d))\n", getID(i + 1), i + 1);
+    }
+
+    //Définition des arêtes avec les probabilités
+    for (int i = 0; i < graph->taille; i++) {
+        t_cell *current = graph->liste[i].head;
+        while (current != NULL) {
+            fprintf(file, "%s -->|%.2f|%s\n",
+                    getID(i + 1),
+                    current->proba,
+                    getID(current->arrivee + 1));
+            current = current->suivant;
+        }
+    }
+
+    fclose(file);
+    printf("Graphe exporté avec succès dans le fichier '%s'.\n", filename);
+}

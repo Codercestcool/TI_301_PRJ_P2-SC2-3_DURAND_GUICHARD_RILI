@@ -35,4 +35,7 @@ t_list_adj readGraph(const char *filename);
 //PARTIE 1 ETAPE 2
 void verifyMarkovGraph(t_list_adj *graph);
 
+//PARTIE 1 ETAPE 3
+void exportToMermaid(t_list_adj *graph, const char *filename);
+
 #endif
