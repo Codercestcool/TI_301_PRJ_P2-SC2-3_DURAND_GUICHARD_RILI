@@ -22,6 +22,8 @@ typedef struct s_list_adj {
 
 static char *getID(int i);
 
+
+// PARTIE 1 ETAPE 1
 t_cell * createCell(int arrivee, float proba);
 t_list * createEmptyList();
 void addCell(t_list *list, int arrivee, float proba);
@@ -29,5 +31,8 @@ void displayList(t_list *list);
 t_list_adj createEmptyAdjList(int size);
 void displayListAdj(t_list_adj *list_adj);
 t_list_adj readGraph(const char *filename);
+
+//PARTIE 1 ETAPE 2
+void verifyMarkovGraph(t_list_adj *graph);
 
 #endif

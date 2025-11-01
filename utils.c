@@ -27,6 +27,8 @@ static char *getID(int i){
     return buffer;
 }
 
+//=====ETAPE 1 PARTIE 1=====
+
 // Crée une nouvelle cellule 
 t_cell * createCell(int arrivee, float proba) {
     t_cell *cell = (t_cell *)malloc(sizeof(t_cell));
@@ -133,4 +135,32 @@ t_list_adj readGraph(const char *filename) {
     fclose(file);
 
     return list_adj;
-} 
+}
+
+//=====PARTIE 1 ETAPE 2=====
+
+//Vérifie si le graphe est une graphe de Markov ou pas
+void verifyMarkovGraph(t_list_adj *graph){
+    int isMarkov = 1;
+
+    for (int i=0; i<graph->taille; i++){
+        float sum = 0.0;
+        t_cell *current = graph->liste[i].head;
+
+        while (current != NULL){
+            sum += current->proba;
+            current = current->suivant;
+        }
+
+        printf("La somme des probabilités du sommet %d est %.2f\n", i, sum);
+
+        if (sum < 0.99f || sum > 1.00f){
+            isMarkov = 0;
+        }
+    }
+
+    if (isMarkov)
+        printf("Le graphe est un graphe de Markov\n");
+    else
+        printf("Le graphe n’est pas un graphe de Markov\n");
+}
