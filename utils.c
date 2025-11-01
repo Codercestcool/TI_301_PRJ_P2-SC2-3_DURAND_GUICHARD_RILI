@@ -67,24 +67,70 @@ void displayList(t_list *list) {
 t_list_adj createEmptyAdjList(int size) {
     t_list_adj list_adj;
     list_adj.size = size;
-    list_adj.tab = (list *)malloc(size * sizeof(list));
+    list_adj.tab = (t_list *)malloc(size * sizeof(t_list));
 
     if (list_adj.tab == NULL) {
         printf("Erreur : allocation mémoire du tableau de listes.\n");
         list_adj.size = 0;
-        return G;
+        return list_adj;
     }
 
     // On initialise chaque liste du tableau comme vide
     for (int i = 0; i < size; i++) {
-        list_adj.tab[i] = createEmptyList();
+        t_list *temp = createEmptyList();
+        list_adj.tab[i] = *temp;
+        free(temp);
     }
 
     return list_adj;
 }
  
+// Affiche une liste d’adjacence complète
+void displayListAdj(t_list_adj *list_adj) {
+    if (list_adj == NULL || list_adj->tab == NULL) {
+        printf("Liste d'adjacence vide ou non initialisée.\n");
+        return;
+    }
+
+    printf("Affichage de la liste d’adjacence\n");
+    for (int i = 0; i < list_adj->size; i++) {
+        printf("Liste pour le sommet %d : ", i);
+        displayList(&(list_adj->tab[i]));
+        printf("\n");
+    }
+}
+
 // Lecture du fichier et création du graphe
 
 // Lit un fichier texte et construit la liste d’adjacence correspondante
  
-t_list_adj readGraph(const char *filename)   //a faire 
+t_list_adj readGraph(const char *filename) {
+    FILE *file = fopen(filename, "rt"); // read-only, text
+    int nbvert, depart, arrivee;
+    float proba;
+
+    t_list_adj list_adj;
+
+    if (file==NULL){
+        perror("Could not open file for reading");
+        exit(EXIT_FAILURE);
+    }
+
+    // Première ligne contient le nombre de sommets
+    if (fscanf(file, "%d", &nbvert) != 1){
+        perror("Could not read number of vertices");
+        exit(EXIT_FAILURE);
+    }
+
+    list_adj = createEmptyAdjList(nbvert);
+
+    while (fscanf(file, "%d %d %f", &depart, &arrivee, &proba) == 3){
+        // on obtient, pour chaque ligne du fichier les valeurs
+        // depart, arrivee, et proba
+        addCell(&(list_adj.liste[depart]), arrivee, proba);
+    }
+
+    fclose(file);
+
+    return list_adj;
+} 

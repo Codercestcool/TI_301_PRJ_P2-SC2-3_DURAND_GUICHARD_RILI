@@ -26,8 +26,8 @@ t_cell * createCell(int arrivee, float proba);
 t_list * createEmptyList();
 void addCell(t_list *list, int arrivee, float proba);
 void displayList(t_list *list);
-t_list_adj * createListAdj(int taille);
+t_list_adj createEmptyAdjList(int size);
 void displayListAdj(t_list_adj *list_adj);
-
+t_list_adj readGraph(const char *filename);
 
 #endif
