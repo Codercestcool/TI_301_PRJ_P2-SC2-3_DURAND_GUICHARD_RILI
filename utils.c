@@ -205,3 +205,23 @@ void exportToMermaid(t_list_adj *graph, const char *filename) {
     fclose(file);
     printf("Graphe exporté avec succès dans le fichier '%s'.\n", filename);
 }
+
+
+// PARTIE 2
+
+t_tarjan_sommet * tab_sommets(t_list_adj graph){
+    int n = graph.taille;
+    t_tarjan_sommet * sommets = malloc(n * sizeof(t_tarjan_sommet));
+    if (sommets == NULL) {
+        perror("Erreur d'allocation mémoire");
+        exit(EXIT_FAILURE);
+    }
+
+    for (int i = 0; i < n; i++){
+        sommets[i].id = i;
+        sommets[i].num = -1;
+        sommets[i].num_acc = -1;
+        sommets[i].booleen = 0;
+    }
+    return sommets;
+}

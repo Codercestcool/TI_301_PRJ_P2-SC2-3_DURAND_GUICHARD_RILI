@@ -28,7 +28,5 @@ int main() {
     displayListAdj(&g2);
     verifyMarkovGraph(&g2);
 
-    t_tarjan_sommet *sommets = malloc(n * sizeof(t_tarjan_sommet));
-
     return 0;
 }

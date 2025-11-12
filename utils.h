@@ -55,6 +55,7 @@ typedef struct s_classe_list {
     t_classe *classe = malloc(n * sizeof(t_classe));
 } t_classe_list;
 
+t_tarjan_sommet * tab_sommets(t_list_adj graph);
 void parcours(t_tarjan_sommet sommet);
 
 
