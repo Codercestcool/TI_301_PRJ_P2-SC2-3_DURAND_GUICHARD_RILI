@@ -58,11 +58,11 @@ void addCell(t_list *list, int arrivee, float proba) {
 void displayList(t_list *list) {
     t_cell *current = list->head;
     printf("[head @] -> ");
-    while (current->suivant != NULL) {
-        printf("(%d, %.2f) -> ", current->destination, current->proba);
+    while (current->next != NULL) {
+        printf("(%d, %.2f) -> ", current->arrivee, current->proba);
         current = current->suivant;
     }
-    printf("(%d, %.2f)", current->destination, current->proba);
+    printf("(%d, %.2f)", current->arrivee, current->proba);
 }
 
 // Crée une liste d’adjacence vide pour un nombre donné de sommets
