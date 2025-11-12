@@ -32,7 +32,7 @@ static char *getID(int i){
 // Crée une nouvelle cellule 
 t_cell * createCell(int arrivee, float proba) {
     t_cell *cell = (t_cell *)malloc(sizeof(t_cell));
-    cell->destination = destination;
+    cell->arrivee = arrivee;
     cell->proba = proba;
     return cell;
 }
@@ -46,7 +46,7 @@ t_list * createEmptyList() {
 
 // Ajoute une cellule au début d’une liste
 void addCell(t_list *list, int arrivee, float proba) {
-    cell *newCell = createCell(destination, proba);
+    t_cell *newCell = createCell(arrivee, proba);
     if (newCell == NULL) return; // Si l’allocation a échoué, on arrête ici
 
     // Insertion en tête de liste
@@ -58,29 +58,29 @@ void addCell(t_list *list, int arrivee, float proba) {
 void displayList(t_list *list) {
     t_cell *current = list->head;
     printf("[head @] -> ");
-    while (cell->suivant != NULL) {
-        printf("(%d, %.2f) -> ", cell->destination, cell->proba);
-        cell = cell->suivant;
+    while (current->suivant != NULL) {
+        printf("(%d, %.2f) -> ", current->destination, current->proba);
+        current = current->suivant;
     }
-    printf("(%d, %.2f)", cell->destination, cell->proba);
+    printf("(%d, %.2f)", current->destination, current->proba);
 }
 
 // Crée une liste d’adjacence vide pour un nombre donné de sommets
 t_list_adj createEmptyAdjList(int size) {
     t_list_adj list_adj;
-    list_adj.size = size;
-    list_adj.tab = (t_list *)malloc(size * sizeof(t_list));
+    list_adj.taille = size;
+    list_adj.liste = (t_list *)malloc(size * sizeof(t_list));
 
-    if (list_adj.tab == NULL) {
+    if (list_adj.liste == NULL) {
         printf("Erreur : allocation mémoire du tableau de listes.\n");
-        list_adj.size = 0;
+        list_adj.taille = 0;
         return list_adj;
     }
 
     // On initialise chaque liste du tableau comme vide
     for (int i = 0; i < size; i++) {
         t_list *temp = createEmptyList();
-        list_adj.tab[i] = *temp;
+        list_adj.liste[i] = *temp;
         free(temp);
     }
 
@@ -89,15 +89,15 @@ t_list_adj createEmptyAdjList(int size) {
  
 // Affiche une liste d’adjacence complète
 void displayListAdj(t_list_adj *list_adj) {
-    if (list_adj == NULL || list_adj->tab == NULL) {
+    if (list_adj == NULL || list_adj->liste == NULL) {
         printf("Liste d'adjacence vide ou non initialisée.\n");
         return;
     }
 
     printf("Affichage de la liste d’adjacence\n");
-    for (int i = 0; i < list_adj->size; i++) {
+    for (int i = 0; i < list_adj->taille; i++) {
         printf("Liste pour le sommet %d : ", i);
-        displayList(&(list_adj->tab[i]));
+        displayList(&(list_adj->liste[i]));
         printf("\n");
     }
 }
