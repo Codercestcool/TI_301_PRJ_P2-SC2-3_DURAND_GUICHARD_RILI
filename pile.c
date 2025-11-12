@@ -14,7 +14,7 @@ int estVide(t_pile *p) {
 
 // Empiler
 void empiler(t_pile *p, int valeur) {
-    t_node *nouveau = malloc(sizeof(Noeud));
+    t_cell *nouveau = malloc(sizeof(Noeud));
     if (!nouveau) {
         printf("Erreur : mémoire insuffisante\n");
         exit(EXIT_FAILURE);
@@ -30,7 +30,7 @@ int depiler(t_pile *p) {
         printf("Erreur : pile vide\n");
         exit(EXIT_FAILURE);
     }
-    t_node *temp = p->sommet;
+    t_cell *temp = p->sommet;
     int valeur = temp->valeur;
     p->sommet = temp->suivant;
     free(temp);
@@ -39,7 +39,7 @@ int depiler(t_pile *p) {
 
 // Afficher la pile
 void afficherPile(t_pile *p) {
-    t_node *courant = p->sommet;
+    t_cell *courant = p->sommet;
     printf("Pile (sommet → bas) : ");
     while (courant) {
         printf("%d ", courant->valeur);

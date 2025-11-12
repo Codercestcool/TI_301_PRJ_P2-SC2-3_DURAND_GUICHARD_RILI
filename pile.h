@@ -4,10 +4,10 @@
 typedef struct s_cell {
     int valeur;
     struct s_cell *suivant;
-} t_node;
+} t_cell;
 
 typedef struct {
-    t_node *sommet;
+    t_cell *sommet;
 } t_pile;
 
 void initPile(t_pile *p);
