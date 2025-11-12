@@ -32,10 +32,24 @@ t_list_adj createEmptyAdjList(int size);
 void displayListAdj(t_list_adj *list_adj);
 t_list_adj readGraph(const char *filename);
 
-//PARTIE 1 ETAPE 2
+// PARTIE 1 ETAPE 2
 void verifyMarkovGraph(t_list_adj *graph);
 
-//PARTIE 1 ETAPE 3
+// PARTIE 1 ETAPE 3
 void exportToMermaid(t_list_adj *graph, const char *filename);
+
+
+// PARTIE 2
+typedef struct s_tarjan_sommet {
+    int id; // Numéro du sommet dans le graphe
+    int num; // Numéro temporaire du sommet (pour créer la classe)
+    int num_acc; // Numéro du sommet accessible
+    int booleen; // Valant soit 0 soit 1
+} t_tarjan_sommet;
+
+
+
+void parcours(t_tarjan_sommet sommet);
+t_tarjan_sommet 
 
 #endif
