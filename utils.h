@@ -48,15 +48,18 @@ typedef struct s_tarjan_sommet {
 } t_tarjan_sommet;
 
 typedef struct s_classe {
-    t_tarjan_sommet *sommets_classe = malloc(n * sizeof(t_tarjan_sommet));
+    int *sommets;   // Tableau des sommets de la classe
+    int taille;     // Nombre de sommets dans cette classe
 } t_classe;
 
 typedef struct s_classe_list {
-    t_classe *classe = malloc(n * sizeof(t_classe));
+    t_classe *classes; // Tableau de classes
+    int nb_classes;    // Nombre de classes trouvées
+    int capacite;      // Capacité allouée pour agrandir si besoin
 } t_classe_list;
 
 t_tarjan_sommet * tab_sommets(t_list_adj graph);
-void parcours(t_tarjan_sommet sommet);
-
+void parcours(t_list_adj *graph, t_tarjan_sommet *sommets, int v, t_classe_list *partition);
+t_classe_list *tarjan(t_list_adj *graph);
 
 #endif
