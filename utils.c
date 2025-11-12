@@ -50,7 +50,7 @@ void addCell(t_list *list, int arrivee, float proba) {
     if (newCell == NULL) return; // Si l’allocation a échoué, on arrête ici
 
     // Insertion en tête de liste
-    newCell->next = list->head;
+    newCell->suivant = list->head;
     list->head = newCell;
 }
 
@@ -58,7 +58,7 @@ void addCell(t_list *list, int arrivee, float proba) {
 void displayList(t_list *list) {
     t_cell *current = list->head;
     printf("[head @] -> ");
-    while (current->next != NULL) {
+    while (current->suivant != NULL) {
         printf("(%d, %.2f) -> ", current->arrivee, current->proba);
         current = current->suivant;
     }
