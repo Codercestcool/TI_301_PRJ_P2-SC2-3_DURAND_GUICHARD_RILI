@@ -47,9 +47,15 @@ typedef struct s_tarjan_sommet {
     int booleen; // Valant soit 0 soit 1
 } t_tarjan_sommet;
 
+typedef struct s_classe {
+    t_tarjan_sommet *sommets_classe = malloc(n * sizeof(t_tarjan_sommet));
+} t_classe;
 
+typedef struct s_classe_list {
+    t_classe *classe = malloc(n * sizeof(t_classe));
+} t_classe_list;
 
 void parcours(t_tarjan_sommet sommet);
-t_tarjan_sommet 
+
 
 #endif
