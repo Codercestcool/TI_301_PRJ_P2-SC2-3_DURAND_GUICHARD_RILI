@@ -79,6 +79,7 @@ void afficherHasseMermaid(t_link_array *links) {
     }
 }
 
+//OPTION 1
 /* Suppression des liens transitifs (option Hasse strict)
  
    Exemple :
@@ -128,4 +129,65 @@ void removeTransitiveLinks(t_link_array *links, int nb_classes) {
         if (keep[i]) links->links[newSize++] = links->links[i];
 
     links->taille = newSize;
+}
+//OPTION 2
+
+/* Suppression des liens transitifs dans p_link_array
+  Exemple avant nettoyage :
+       C1 -> C2
+       C2 -> C3
+       C1 -> C3   (redondant)
+
+   Exemple après nettoyage :
+       C1 -> C2
+       C2 -> C3
+   */
+
+static int pathExistsFrom(const t_link_array *arr, int start, int end) {
+    for (int i = 0; i < arr->taille; i++) {
+        if (arr->links[i].depart == start) {
+            int mid = arr->links[i].arrivee;
+            if (mid == end) return 1;
+            if (pathExistsFrom(arr, mid, end)) return 1;
+        }
+    }
+    return 0;
+}
+
+void removeTransitiveLinks(t_link_array *p_link_array) {
+    int taille = p_link_array->taille;
+    if (taille < 2) return; // rien à nettoyer
+
+    int *keep = malloc(sizeof(int) * taille);
+    for (int i = 0; i < taille; i++) keep[i] = 1;
+
+    for (int i = 0; i < taille; i++) {
+        int A = p_link_array->links[i].depart;
+        int B = p_link_array->links[i].arrivee;
+
+        for (int j = 0; j < taille; j++) {
+            if (i == j) continue;
+            if (!keep[i]) break;
+
+            int A2 = p_link_array->links[j].depart;
+            int M  = p_link_array->links[j].arrivee;
+
+            // On cherche A -> M -> ... -> B
+            if (A == A2 && M != B) {
+                if (pathExistsFrom(p_link_array, M, B)) {
+                    keep[i] = 0; // lien redondant
+                }
+            }
+        }
+    }
+
+    // Reconstruction filtrée du tableau de liens
+    int newSize = 0;
+    for (int i = 0; i < taille; i++) {
+        if (keep[i]) {
+            p_link_array->links[newSize++] = p_link_array->links[i];
+        }
+    }
+    p_link_array->taille = newSize;
+    free(keep);
 }
