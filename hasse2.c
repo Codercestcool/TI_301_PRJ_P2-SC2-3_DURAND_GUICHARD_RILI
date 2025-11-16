@@ -78,3 +78,54 @@ void afficherHasseMermaid(t_link_array *links) {
         );
     }
 }
+
+/* Suppression des liens transitifs (option Hasse strict)
+ 
+   Exemple :
+       C1 -> C2
+       C2 -> C3
+       C1 -> C3   (redondant, sera supprimé)
+  */
+int pathExists(t_link_array *links, int start, int end) {
+    // Recherche récursive de chemin (DFS)
+    for (int i = 0; i < links->taille; i++) {
+        if (links->links[i].depart == start) {
+            int next = links->links[i].arrivee;
+            if (next == end) return 1;
+            if (pathExists(links, next, end)) return 1;
+        }
+    }
+    return 0;
+}
+
+void removeTransitiveLinks(t_link_array *links, int nb_classes) {
+    int keep[links->taille]; 
+    for (int i = 0; i < links->taille; i++) keep[i] = 1;
+
+    for (int i = 0; i < links->taille; i++) {
+        int A = links->links[i].depart;
+        int B = links->links[i].arrivee;
+
+        // On regarde s'il existe A -> X -> B
+        for (int j = 0; j < links->taille; j++) {
+            if (i == j) continue;
+            int A2 = links->links[j].depart;
+            int M  = links->links[j].arrivee;
+
+            if (A == A2 && M != B) {
+                // Si A -> M -> ... -> B alors A -> B est redondant
+                if (pathExists(links, M, B)) {
+                    keep[i] = 0;
+                    break;
+                }
+            }
+        }
+    }
+
+    // Construction d'un nouveau tableau de liens filtré
+    int newSize = 0;
+    for (int i = 0; i < links->taille; i++)
+        if (keep[i]) links->links[newSize++] = links->links[i];
+
+    links->taille = newSize;
+}
