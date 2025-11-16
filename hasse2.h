@@ -34,4 +34,6 @@ void construireLiensHasse(
 // Affichage Mermaid
 void afficherHasseMermaid(t_link_array *links);
 
+void removeTransitiveLinks(t_link_array *links, int nb_classes);
+
 #endif
