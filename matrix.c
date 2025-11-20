@@ -1,5 +1,6 @@
 #include "matrix.h"
 #include <math.h>
+#include <string.h>
 
 //Crée et initialise une matrice N x N remplie de zéros.
 t_matrix create_empty_matrix(int N) {
