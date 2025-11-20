@@ -10,5 +10,7 @@ add_executable(TI_301_PJT
         mermaid_gen.h
         graph.c
         markov_check.c
-        mermaid_gen.c)
+        mermaid_gen.c
+        tarjan.h
+        tarjan.c)
 
