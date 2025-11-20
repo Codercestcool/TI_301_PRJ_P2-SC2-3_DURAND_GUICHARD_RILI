@@ -1,6 +1,4 @@
 #include "graph.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 //Crée et initialise une nouvelle cellule/arête.
 t_edge *create_edge(int arrival, float proba) {

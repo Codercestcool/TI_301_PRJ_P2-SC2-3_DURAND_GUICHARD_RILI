@@ -1,6 +1,9 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include <stdio.h>
+#include <stdlib.h>
+
 //Représente une arête (ou une 'cellule' dans la liste chaînée). Chaque arête a une probabilité et mène à un sommet.
 typedef struct s_edge {
     int destination;// Sommet d'arrivée

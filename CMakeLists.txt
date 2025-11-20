@@ -12,5 +12,7 @@ add_executable(TI_301_PJT
         markov_check.c
         mermaid_gen.c
         tarjan.h
-        tarjan.c)
+        tarjan.c
+        hasse.h
+        hasse.c)
 

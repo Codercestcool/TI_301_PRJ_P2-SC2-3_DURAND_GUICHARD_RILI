@@ -1,7 +1,5 @@
 #include "markov_check.h"
 #include <math.h> // Pour utiliser fabsf (valeur absolue d'un float)
-#include <stdio.h>
-#include <stdlib.h>
 
 //Vérifie si un graphe est un Graphe de Markov.
 int is_markov_graph(t_graph graph) {

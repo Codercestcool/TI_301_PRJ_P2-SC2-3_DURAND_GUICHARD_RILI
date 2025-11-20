@@ -1,6 +1,4 @@
 #include "mermaid_gen.h"
-#include <string.h>
-#include <stdio.h>
 
 //Fournit une chaîne de caractères (ID Mermaid) associée à un entier.
 static char *getID(int i){
