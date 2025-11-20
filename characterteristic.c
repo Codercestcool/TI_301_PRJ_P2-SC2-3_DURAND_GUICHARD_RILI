@@ -2,7 +2,7 @@
 #include "graph.h"
 #include "tarjan.h"
 #include <stdio.h>
-//PARTIE 3 — étape 3 :
+//PARTIE 2 — étape 3 :
 
 
 //Fonction qui vérifie la transience d'une classe
