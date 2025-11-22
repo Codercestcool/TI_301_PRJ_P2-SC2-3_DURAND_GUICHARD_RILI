@@ -29,4 +29,13 @@ t_matrix multiply_matrices(t_matrix A, t_matrix B);
 //Calcule la différence absolue cumulée entre deux matrices. Utilisé pour vérifier la convergence M^n et M^(n-1). La formule est : sum(sum(|A[i][j] - B[i][j]|))
 float diff_matrices(t_matrix A, t_matrix B);
 
+
+
+//Partie 3 etape 2//
+
+t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index);
+t_matrix powerMatrix(t_matrix M, int power);
+t_matrix stationaryDistribution(t_matrix M);
+
+
 #endif // MATRIX_H
