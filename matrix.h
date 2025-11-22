@@ -31,7 +31,7 @@ float diff_matrices(t_matrix A, t_matrix B);
 
 
 
-//Partie 3 etape 2//
+//Partie 3 etape 2 
 
 t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index);
 t_matrix powerMatrix(t_matrix M, int power);
