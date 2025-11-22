@@ -1,6 +1,8 @@
 #include "matrix.h"
 #include <math.h>
 #include <string.h>
+#include "tarjan.h"
+#include "characteristic.h"
 
 //Crée et initialise une matrice N x N remplie de zéros.
 t_matrix create_empty_matrix(int N) {
@@ -130,4 +132,116 @@ float diff_matrices(t_matrix A, t_matrix B) {
     }
     
     return total_diff;
+}
+
+ 
+//  ETAPE 2 – PARTIE 3 : Sous-matrices et distributions stationnaires
+ 
+
+#include "matrix.h"
+#include "tarjan.h"
+#include "characteristic.h"
+#include <stdlib.h>
+#include <stdio.h>
+ 
+// Sous-matrice : extrait la matrice correspondant à une classe
+ 
+t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index) {
+
+    t_class class = part.classes[compo_index];
+    int k = class.num_members;   // Taille de la sous-matrice
+
+    // Création d’une matrice k×k (initialisée à zéro)
+    t_matrix sub = create_empty_matrix(k);
+
+    // Pour chaque sommet de la classe
+    for (int r = 0; r < k; r++) {
+        int original_row = class.members_ids[r] - 1; // Numéro de ligne dans M
+
+        for (int c = 0; c < k; c++) {
+            int original_col = class.members_ids[c] - 1; // Numéro de colonne dans M
+
+            // Copie du coefficient correspondant
+            sub.data[r][c] = matrix.data[original_row][original_col];
+        }
+    }
+
+    return sub;
+}
+
+// Calcul d’une puissance de matrice : M^power
+// Utilisé pour approcher la distribution stationnaire
+ 
+t_matrix powerMatrix(t_matrix M, int power) {
+
+    int N = M.rows;
+
+    // Matrice résultat initialisée à l'identité
+    t_matrix result = create_empty_matrix(N);
+    for (int i = 0; i < N; i++)
+        result.data[i][i] = 1.0f;
+
+    // Matrice temporaire pour les multiplications
+    t_matrix current = create_empty_matrix(N);
+    copy_matrix(current, M);
+
+    while (power > 0) {
+
+        // Si bit impair → multiplier dans le résultat
+        if (power % 2 == 1) {
+            t_matrix temp = multiply_matrices(result, current);
+            free_matrix(result);
+            result = temp;
+        }
+
+        // Carré de la matrice
+        t_matrix temp2 = multiply_matrices(current, current);
+        free_matrix(current);
+        current = temp2;
+
+        power /= 2;
+    }
+
+    free_matrix(current);
+    return result;
+}
+ 
+// Distribution stationnaire : limite de M^k
+// Approché en itérant jusqu’à stabilisation
+ 
+t_matrix stationaryDistribution(t_matrix M) {
+
+    int N = M.rows;
+
+    // Matrices M^(k) et M^(k-1)
+    t_matrix Mk   = create_empty_matrix(N);
+    t_matrix Mk_1 = create_empty_matrix(N);
+
+    // Première approximation : M^1
+    copy_matrix(Mk_1, M);
+
+    float epsilon = 0.01f;
+
+    // Calcul successif des puissances de M
+    for (int k = 2; k <= 200; k++) {
+
+        // Mk = Mk_1 * M
+        free_matrix(Mk);
+        Mk = multiply_matrices(Mk_1, M);
+
+        // Si la différence devient faible → convergence
+        float diff = diff_matrices(Mk, Mk_1);
+        if (diff < epsilon) {
+            free_matrix(Mk_1);
+            return Mk;  // Matrice stabilisée (ligne stationnaire)
+        }
+
+        // Prépare l’itération suivante
+        free_matrix(Mk_1);
+        Mk_1 = create_empty_matrix(N);
+        copy_matrix(Mk_1, Mk);
+    }
+
+    printf(" Avertissement : la matrice n’a pas convergé après 200 itérations.\n");
+    return Mk;
 }
