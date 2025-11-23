@@ -45,10 +45,10 @@ int Transience(t_graph graph, t_class *class){
 void Characterize(t_graph graph, t_partition partition){
     // Vérifie si la chaîne est irréductible
     if(partition.num_classes == 1){
-        printf("La chaîne est irréductible\n");
+        printf("La chaine est irreductible\n");
     }
     else{
-        printf("La chaîne n'est pas irréductible\n");
+        printf("La chaine n'est pas irreductible\n");
     }
     for(int i = 0; i < partition.num_classes; i++){ // Parcours des classes trouvées par Tarjan
         t_class * class = &partition.classes[i];
@@ -58,7 +58,7 @@ void Characterize(t_graph graph, t_partition partition){
           printf("persistante\n"); //La classe est récurrente / persistante
           if(class->num_members == 1){ //Vérifie si la classe contient un unique état
             int vertex = class->members_ids[0]; //L'unique sommet d'une classe récurrente / persistante est absorbant
-            printf("L'état %d est persistant\n", vertex);
+            printf("L'etat %d est persistant\n", vertex);
           }
         }
         else{
@@ -67,3 +67,16 @@ void Characterize(t_graph graph, t_partition partition){
     }
 }
 
+// Implémentation de la fonction pour la gestion des données
+void set_persistence_flags(t_graph graph, t_partition *partition) {
+    for (int i = 0; i < partition->num_classes; i++) {
+        // Appelle votre fonction de vérification
+        if (Transience(graph, &partition->classes[i]) == 0) {
+            // Si Transience retourne 0 → Persistante (Récurrente).
+            partition->classes[i].is_persistent = 1;
+        } else {
+            // Si Transience retourne 1 → Transitoire
+            partition->classes[i].is_persistent = 0;
+        }
+    }
+}

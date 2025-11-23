@@ -1,20 +1,22 @@
-cmake_minimum_required(VERSION 3.24)
-project(2526_TI301_PJT C)
+cmake_minimum_required(VERSION 3.10)
+
+project(MarkovAnalyzer C)
 
 set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED True)
 
-add_executable(TI_301_PJT
+set(SOURCE_FILES
         main.c
-        graph.h
-        markov_check.h
-        mermaid_gen.h
         graph.c
         markov_check.c
         mermaid_gen.c
-        tarjan.h
         tarjan.c
-        hasse.h
         hasse.c
-        matrix.h
-        matrix.c)
+        characteristic.c
+        matrix.c
+        period.c
+)
 
+add_executable(markov_analyzer ${SOURCE_FILES})
+
+target_link_libraries(markov_analyzer m)

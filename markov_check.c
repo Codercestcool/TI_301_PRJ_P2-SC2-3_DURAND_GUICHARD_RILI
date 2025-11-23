@@ -5,7 +5,7 @@
 int is_markov_graph(t_graph graph) {
     int is_markov = 1;
 
-    printf("--- Vérification de la Propriété de Markov ---\n");
+    printf("--- Verification de la propriete de Markov ---\n");
 
     // Parcourir tous les sommets (de 1 à N)
     for (int i = 0; i < graph.num_vertices; i++) {
@@ -21,9 +21,9 @@ int is_markov_graph(t_graph graph) {
         // Vérification avec une tolérance
         if (fabsf(sum_proba - 1.0f) > TOLERANCE) {
             // Le graphe n’est pas un graphe de Markov
-            printf("Le graphe n'est PAS un graphe de Markov.\n");
-            printf("la somme des probabilités du sommet %d est %.2f (hors tolérance de +/-%.2f)\n", 
-                   i + 1, sum_proba, TOLERANCE);// Affichage du sommet en cause [cite: 117, 118]
+            printf("Le graphe n'est pas un graphe de Markov.\n");
+            printf("la somme des probabilites du sommet %d est %.2f (hors tolerance de +/-%.2f)\n",
+                   i + 1, sum_proba, TOLERANCE);// Affichage du sommet en cause
             is_markov = 0; // Marque le graphe comme non-Markov
             // On peut choisir de continuer à vérifier les autres sommets
         }
@@ -31,9 +31,9 @@ int is_markov_graph(t_graph graph) {
 
     if (is_markov) {
         // Le graphe est un graphe de Markov
-        printf("Le graphe est un graphe de Markov (sommes des probabilités sortantes = 1 ± %.2f pour tous les sommets).\n", TOLERANCE);
+        printf("Le graphe est un graphe de Markov (sommes des probabilites sortantes = 1 à + ou - %.2f pour tous les sommets).\n", TOLERANCE);
     }
-    printf("------------------------------------------------\n");
+    printf("-------------------------------------------------\n");
 
     return is_markov;
 }

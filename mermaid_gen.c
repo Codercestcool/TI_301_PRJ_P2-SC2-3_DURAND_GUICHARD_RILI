@@ -72,5 +72,5 @@ void generate_mermaid_file(t_graph graph, const char *output_filename) {
     }
 
     fclose(file);
-    printf("Fichier Mermaid généré: %s\n", output_filename);
+    printf("Fichier mermaid genere: %s\n", output_filename);
 }
