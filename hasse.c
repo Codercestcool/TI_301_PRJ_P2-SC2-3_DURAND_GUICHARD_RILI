@@ -144,7 +144,7 @@ void generate_hasse_mermaid_file(t_link_array *links, const char *output_filenam
     }
 
     fclose(file);
-    printf("Fichier Mermaid du Diagramme de Hasse généré: %s\n", output_filename);
+    printf("Fichier mermaid du diagramme de Hasse genere: %s\n", output_filename);
 }
 
 // --- OPTIONNEL : Suppression des liens transitifs ---

@@ -91,7 +91,7 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Erreur: Lecture du graphe echouee. Verifiez le chemin ou le format du fichier.\n");
         return EXIT_FAILURE;
     }
-    printf("\nGraphe lu avec %d sommets.\n", graph.num_vertices);
+    printf("\nGraphe lu avec %d sommets.\n\n", graph.num_vertices);
 
     // 1.2 Vérification de la Propriété de Markov
     if (!is_markov_graph(graph)) {
@@ -99,7 +99,7 @@ int main(int argc, char *argv[]) {
         free_graph(graph);
         return EXIT_FAILURE;
     }
-    printf("\nLe graphe est valide pour l'etude de Markov.\n\n");
+    printf("Le graphe est valide pour l'etude de Markov.\n\n");
 
     // 1.3 Génération de la Visualisation du Graphe (Mermaid)
     generate_mermaid_file(graph, output_graph_path);
@@ -124,7 +124,7 @@ int main(int argc, char *argv[]) {
     Characterize(graph, partition);
 
     // 2.4 Construction du Diagramme de Hasse (Graphe des Classes)
-    printf("\n2.4 Construction du diagramme de Hasse...\n\n");
+    printf("\n2.4 Construction du diagramme de Hasse\n\n");
     hasse_links = compute_hasse_diagram_links(graph, partition);
 
     // 2.5 Visualisation du Diagramme de Hasse (Mermaid)

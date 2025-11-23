@@ -31,9 +31,8 @@ int is_markov_graph(t_graph graph) {
 
     if (is_markov) {
         // Le graphe est un graphe de Markov
-        printf("Le graphe est un graphe de Markov (sommes des probabilites sortantes = 1 à + ou - %.2f pour tous les sommets).\n", TOLERANCE);
+        printf("Le graphe est un graphe de Markov (sommes des probabilites sortantes = 1 a + ou - %.2f pour tous les sommets).\n", TOLERANCE);
     }
-    printf("-------------------------------------------------\n");
 
     return is_markov;
 }
