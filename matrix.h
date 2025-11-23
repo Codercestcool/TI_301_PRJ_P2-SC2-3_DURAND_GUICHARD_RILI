@@ -2,9 +2,9 @@
 #define MATRIX_H
 
 #include "graph.h" // Pour la conversion t_graph → t_matrix
+#include "tarjan.h"
 
 //Représente une matrice de transition (ou toute matrice NxN).
-
 typedef struct s_matrix {
     float **data;      // Pointeur vers un tableau 2D (NxN) de flottants
     int rows;          // Nombre de lignes (N)

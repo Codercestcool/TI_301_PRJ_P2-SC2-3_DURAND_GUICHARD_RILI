@@ -2,7 +2,6 @@
 #include <math.h>
 #include <string.h>
 #include "tarjan.h"
-#include "characteristic.h"
 
 //Crée et initialise une matrice N x N remplie de zéros.
 t_matrix create_empty_matrix(int N) {
@@ -136,16 +135,9 @@ float diff_matrices(t_matrix A, t_matrix B) {
 
  
 //  ETAPE 2 – PARTIE 3 : Sous-matrices et distributions stationnaires
- 
 
-#include "matrix.h"
-#include "tarjan.h"
-#include "characteristic.h"
-#include <stdlib.h>
-#include <stdio.h>
  
 // Sous-matrice : extrait la matrice correspondant à une classe
- 
 t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index) {
 
     t_class class = part.classes[compo_index];
@@ -225,7 +217,7 @@ t_matrix stationaryDistribution(t_matrix M) {
     // Calcul successif des puissances de M
     for (int k = 2; k <= 200; k++) {
 
-        // Mk = Mk_1 * M
+        //Mk = Mk_1 * M
         free_matrix(Mk);
         Mk = multiply_matrices(Mk_1, M);
 
