@@ -138,6 +138,7 @@ float diff_matrices(t_matrix A, t_matrix B) {
     return total_diff;
 }
 
+// ETAPE 2 – PARTIE 3 : Sous-matrices et distributions stationnaires
 /*  
    subMatrix :
    Extrait la sous-matrice correspondant à une classe (CFC) spécifique.
