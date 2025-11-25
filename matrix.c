@@ -226,3 +226,14 @@ t_matrix stationaryDistribution(t_matrix M) {
     printf(" Avertissement : la matrice n’a pas convergé après 200 itérations.\n");
     return Mk;
 }
+/*matrix.c transforme le graphe en matrice de transition, où chaque ligne représente 
+les probabilités de passage d’un sommet vers les autres.
+Il construit automatiquement la matrice à partir des arêtes et de leurs probabilités.
+Il affiche la matrice pour visualiser les probabilités de transitions.
+
+Il réalise des opérations mathématiques comme la multiplication de matrices ou le calcul d’une puissance P**K
+Ces calculs servent à prédire les probabilités après plusieurs étapes, par exemple 
+où se trouvera un système après 2, 5 ou 10 transitions.
+En résumé : matrix.c convertit le graphe en outil mathématique et effectue les calculs
+nécessaires pour analyser une chaîne de Markov.
+*/
