@@ -2,6 +2,13 @@
 #include <math.h> // Pour utiliser fabsf (valeur absolue d'un float)
 
 //Vérifie si un graphe est un Graphe de Markov.
+/*  
+   is_markov_graph :
+   Vérifie si un graphe orienté est un graphe de Markov.
+   Pour chaque sommet, on calcule la somme des probabilités des arêtes sortantes.
+   Si la somme diffère de 1 (avec une tolérance TOLERANCE), le graphe n’est pas Markovien.
+   Affiche un message pour chaque sommet non conforme et retourne 1 si le graphe est Markov, 0 sinon.
+*/
 int is_markov_graph(t_graph graph) {
     int is_markov = 1;
 
