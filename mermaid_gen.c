@@ -77,3 +77,9 @@ void generate_mermaid_file(t_graph graph, const char *output_filename) {
     fclose(file);
     printf("Fichier mermaid genere: %s\n", output_filename);
 }
+/*mermaid_gen.c génère un fichier au format Mermaid, un langage visuel permettant de représenter des graphes sous forme de schémas.
+Il attribue un identifiant lisible (A, B, C, …) à chaque sommet pour faciliter l’affichage.
+Il écrit la structure du graphe dans un fichier texte : chaque nœud est dessiné et chaque arête est représentée avec sa probabilité.
+Il utilise un style et une mise en page prédéfinis (flowchart, orientation gauche→droite, thème “neo”).
+Le résultat est un diagramme clair montrant les sommets et les transitions, facilement visualisable dans n’importe quel viewer Mermaid.
+En bref : mermaid_gen.c sert à convertir le graphe en un schéma visuel automatique, pratique pour comprendre et vérifier sa structure.*/
