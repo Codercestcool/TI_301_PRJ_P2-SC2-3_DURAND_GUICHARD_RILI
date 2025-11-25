@@ -4,6 +4,10 @@
 #include <string.h>
 
 //Crée et initialise un tableau dynamique de liens.
+/* Crée un tableau dynamique de liens entre classes.
+   Cette fonction alloue une structure t_link_array et un tableau initial de t_link.
+   Elle initialise la taille à 0 et la capacité selon la valeur donnée.
+   Le but est de préparer une structure extensible pour stocker les relations inter-classes. */
 t_link_array *create_link_array(int initial_capacity) {
     if (initial_capacity <= 0) {
         fprintf(stderr, "Error: initial_capacity (%d) invalid in create_link_array.\n",
@@ -30,6 +34,10 @@ t_link_array *create_link_array(int initial_capacity) {
 }
 
 //Libère la mémoire allouée pour le tableau de liens.
+/* Libère entièrement la mémoire allouée par un tableau de liens.
+   Elle libère d'abord le tableau de t_link, puis la structure t_link_array elle-même.
+   Son rôle est simplement de nettoyer correctement la mémoire une fois le travail terminé. */
+
 void free_link_array(t_link_array *arr) {
     if (arr) {
         free(arr->links);
@@ -38,6 +46,10 @@ void free_link_array(t_link_array *arr) {
 }
 
 //Vérifie si un lien entre deux classes existe déjà.
+/* Vérifie si un lien source → destination existe déjà dans le tableau.
+   Elle parcourt la liste actuelle de liens et retourne 1 si déjà présent, 0 sinon.
+   Cela permet d'éviter les doublons lors de la création du diagramme. */
+
 int link_exists(t_link_array *arr, int source_id, int dest_id) {
     if (!arr) return 0;
     for (int i = 0; i < arr->size; i++) {
@@ -48,6 +60,9 @@ int link_exists(t_link_array *arr, int source_id, int dest_id) {
 }
 
 //Ajoute un lien au tableau si non présent, gère la réallocation.
+/* Ajoute un lien source → destination dans le tableau dynamique si il n'existe pas déjà.
+   La fonction vérifie l'existence, réalloue le tableau en cas de manque d'espace, puis ajoute le lien.
+   Elle construit progressivement la structure représentant la relation entre classes. */
 
 void add_link(t_link_array *arr, int source_id, int dest_id) {
     if (!arr) return;
@@ -71,6 +86,10 @@ void add_link(t_link_array *arr, int source_id, int dest_id) {
 }
 
 //Construit les liens entre classes (Diagramme de Hasse).
+/* Calcule les liens entre classes à partir du graphe et de la partition obtenue (CFCs).
+   Pour chaque arête du graphe original, si l'arête relie deux classes différentes,
+   un lien inter-classes est ajouté. Cela construit la base du diagramme de Hasse. */
+
 t_link_array *compute_hasse_diagram_links(t_graph graph, t_partition partition) {
     if (partition.num_classes == 0) return NULL;
 
@@ -104,6 +123,11 @@ t_link_array *compute_hasse_diagram_links(t_graph graph, t_partition partition) 
 
 
 //Génère le fichier Mermaid pour visualiser le Diagramme de Hasse.
+/* Génère un fichier Mermaid (.md) contenant la représentation graphique du diagramme de Hasse.
+   Cette fonction écrit les nœuds (classes persistantes ou transitoires)
+   puis les liens entre classes sous forme d'instructions Mermaid.
+   Le but est de permettre une visualisation claire des relations entre classes. */
+
 void generate_hasse_mermaid_file(t_link_array *links, const char *output_filename, t_partition partition) {
     FILE *file = fopen(output_filename, "w");
 
@@ -150,6 +174,11 @@ void generate_hasse_mermaid_file(t_link_array *links, const char *output_filenam
 // --- OPTIONNEL : Suppression des liens transitifs ---
 
 //Recherche récursive de chemin (DFS) entre deux classes dans le graphe des classes.
+/* Vérifie récursivement l'existence d'un chemin entre deux classes.
+   La fonction recherche si, depuis une classe de départ, il existe une suite de liens
+   menant à une classe d'arrivée, en excluant le lien direct initial.
+   Elle permet de détecter des relations transitives dans le diagramme. */
+
 static int path_exists_from(const t_link_array *arr, int start, int end) {
     for (int i = 0; i < arr->size; i++) {
         if (arr->links[i].source_class_id == start) {
@@ -165,6 +194,11 @@ static int path_exists_from(const t_link_array *arr, int start, int end) {
 }
 
 //Supprime les liens redondants pour obtenir un Diagramme de Hasse strict.
+/* Supprime les liens transitifs pour obtenir un diagramme de Hasse strict.
+   Un lien A→B est retiré si un chemin A→M→…→B existe via une autre classe.
+   La fonction garde un tableau des liens à conserver, élimine les redondants,
+   et reconstruit une liste nettoyée, ne laissant que les relations minimales. */
+
 void remove_transitive_links(t_link_array *links) {
     if (!links || links->size < 2) return;
 
@@ -211,7 +245,8 @@ void remove_transitive_links(t_link_array *links) {
     free(keep);
 }
 
-# 🎓 **Résumé simple**
+
+ /*Résumé simple
 
 1. On crée un **tableau dynamique de liens**.
 2. On parcourt le graphe pour générer tous les **liens inter-classes**.
@@ -227,3 +262,4 @@ afin que le résultat soit un **diagramme de Hasse strict**, c’est-à-dire une
 d’ordre entre classes. Enfin, il génère un fichier **Mermaid** qui permet de visualiser ce diagramme sous forme de graphe
 hiérarchique lisible. En résumé : ce code prend les CFC et construit la **structure hiérarchique** entre elles, puis la
 rend **visible et exploitable**.
+*/
