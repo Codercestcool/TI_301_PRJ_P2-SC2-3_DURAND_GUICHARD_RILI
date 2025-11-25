@@ -242,4 +242,14 @@ void free_partition(t_partition partition) {
     partition.num_classes = 0;
 }
  
- 
+/*Étapes de Tarjan
+On choisit un sommet non visité et on lance un parcour en profondeur du graph .
+Quand un sommet est visité :
+On lui donne un index et un lowlink.
+On le met dans la pile.
+On explore ses voisins :
+S’ils ne sont pas visités →  parcour en profondeur sur eux
+Sinon, s’ils sont encore dans la pile → on met à jour le lowlink
+Quand le lowlink == index, cela signifie :
+→ On a trouvé la racine d’une composante fortement connexe
+On dépile les éléments jusqu’à revenir à cette racine. */
