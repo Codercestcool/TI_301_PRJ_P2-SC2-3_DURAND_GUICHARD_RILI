@@ -242,4 +242,4 @@ void free_partition(t_partition partition) {
     partition.num_classes = 0;
 }
  
-Si tu veux, je peux aussi te faire exactement la **même chose pour l’autre fichier (Hasse)**.
+ 
