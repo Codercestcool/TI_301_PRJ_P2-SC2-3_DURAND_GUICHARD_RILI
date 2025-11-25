@@ -211,6 +211,13 @@ void remove_transitive_links(t_link_array *links) {
     free(keep);
 }
 
+# 🎓 **Résumé simple**
+
+1. On crée un **tableau dynamique de liens**.
+2. On parcourt le graphe pour générer tous les **liens inter-classes**.
+3. On **supprime les liens transitifs** pour obtenir le diagramme de Hasse strict.
+4. On génère un fichier **Mermaid** pour visualiser les classes et leurs relations.
+
 
 Le code “Hasse” sert à **construire automatiquement le diagramme de Hasse entre les classes fortement connexes (CFC)
 ** obtenues après Tarjan. Concrètement, une fois que le graphe a été regroupé en classes, ce module analyse toutes 
