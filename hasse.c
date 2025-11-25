@@ -210,3 +210,13 @@ void remove_transitive_links(t_link_array *links) {
     links->size = new_size;
     free(keep);
 }
+
+
+Le code “Hasse” sert à **construire automatiquement le diagramme de Hasse entre les classes fortement connexes (CFC)
+** obtenues après Tarjan. Concrètement, une fois que le graphe a été regroupé en classes, ce module analyse toutes 
+les arêtes du graphe pour déterminer **quelles classes dépendent d’autres classes**, puis génère des liens entre elles. 
+    Ensuite, il filtre ces liens pour supprimer ceux qui sont **transitifs** (par exemple si A → B et B → C existent, on enlève A → C), 
+afin que le résultat soit un **diagramme de Hasse strict**, c’est-à-dire une représentation claire et minimale de la relation 
+d’ordre entre classes. Enfin, il génère un fichier **Mermaid** qui permet de visualiser ce diagramme sous forme de graphe
+hiérarchique lisible. En résumé : ce code prend les CFC et construit la **structure hiérarchique** entre elles, puis la
+rend **visible et exploitable**.
